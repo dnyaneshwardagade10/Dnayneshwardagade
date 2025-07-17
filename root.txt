@@ -1,0 +1,72 @@
+C:\Program Files\MySQL\MySQL Server 9.3\bin>mysql -h localhost -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 9.3.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| demo               |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| stud               |
+| sys                |
+| world              |
++--------------------+
+8 rows in set (0.011 sec)
+
+mysql> create database new;
+Query OK, 1 row affected (0.123 sec)
+
+mysql> use new;
+Database changed
+mysql> create table students(Name varchar(10));
+Query OK, 0 rows affected (0.646 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_new |
++---------------+
+| students      |
++---------------+
+1 row in set (0.228 sec)
+
+mysql> alter table students add primary key(Roll_no);
+ERROR 1072 (42000): Key column 'Roll_no' doesn't exist in table
+mysql> alter table students add Roll_no int;
+Query OK, 0 rows affected (0.488 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table students add primary key(Roll_no);
+Query OK, 0 rows affected (0.355 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> create user 'dnyaneshwar'@localhost identified by 'dnyaneshwar10';
+Query OK, 0 rows affected (0.259 sec)
+
+mysql> grant all privileges on *.* to 'dnyaneshwar'@localhost;
+Query OK, 0 rows affected (0.155 sec)
+
+mysql> desc students;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| Name    | varchar(10) | YES  |     | NULL    |       |
+| Roll_no | int         | NO   | PRI | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+2 rows in set (0.082 sec)
+
+mysql>
+
