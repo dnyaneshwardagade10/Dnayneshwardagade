@@ -1,0 +1,154 @@
+C:\Program Files\MySQL\MySQL Server 9.2\bin>mysql -h localhost -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 9.2.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database bankdb;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> use bankdb;
+Database changed
+mysql> create table customer(
+    -> customerid INT NOT NULL PRIMARY KEY,
+    -> Name VARCHAR(100) NOT NULL,
+    -> Address VARCHAR(255) NOT NULL,
+    -> contactno VARCHAR(15) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table account(
+    -> Account_no INT NOT NULL UNIQUE,
+    -> Account_type VARCHAR(50) NOT NULL,
+    -> Balance DECIMAL(10,2) NOT NULL,
+    ->  customerid INT NOT NULL,
+    -> PRIMARY KEY (Account_no),
+    ->  FOREIGN KEY (customerid) REFERENCES customer(customerid)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create table `transaction`(
+    -> Transaction_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->  Account_no INT NOT NULL,
+    -> Txn_Date DATE NOT NULL,
+    -> Txn_Time TIME NOT NULL,
+    -> Amount DECIMAL(10,2) NOT NULL,
+    -> FOREIGN KEY (Account_no) REFERENCES account(Account_no)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create table employee(
+    -> Emp_ID INT AUTO_INCREMENT PRIMARY KEY,
+    -> Name VARCHAR(100) NOT NULL,
+    -> Branch VARCHAR(100) NOT NULL,\
+    -> Role VARCHAR(100) NOT NULL
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_bankdb |
++------------------+
+| account          |
+| customer         |
+| employee         |
+| transaction      |
++------------------+
+4 rows in set (0.01 sec)
+
+mysql> desc account;
++--------------+---------------+------+-----+---------+-------+
+| Field        | Type          | Null | Key | Default | Extra |
++--------------+---------------+------+-----+---------+-------+
+| Account_no   | int           | NO   | PRI | NULL    |       |
+| Account_type | varchar(50)   | NO   |     | NULL    |       |
+| Balance      | decimal(10,2) | NO   |     | NULL    |       |
+| customerid   | int           | NO   | MUL | NULL    |       |
++--------------+---------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc customer;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| customerid | int          | NO   | PRI | NULL    |       |
+| Name       | varchar(100) | NO   |     | NULL    |       |
+| Address    | varchar(255) | NO   |     | NULL    |       |
+| contactno  | varchar(15)  | NO   |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc employee;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| Emp_ID | int          | NO   | PRI | NULL    | auto_increment |
+| Name   | varchar(100) | NO   |     | NULL    |                |
+| Branch | varchar(100) | NO   |     | NULL    |                |
+| Role   | varchar(100) | NO   |     | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> desc transaction;
++----------------+---------------+------+-----+---------+----------------+
+| Field          | Type          | Null | Key | Default | Extra          |
++----------------+---------------+------+-----+---------+----------------+
+| Transaction_id | int           | NO   | PRI | NULL    | auto_increment |
+| Account_no     | int           | NO   | MUL | NULL    |                |
+| Txn_Date       | date          | NO   |     | NULL    |                |
+| Txn_Time       | time          | NO   |     | NULL    |                |
+| Amount         | decimal(10,2) | NO   |     | NULL    |                |
++----------------+---------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> create user 'amit10'@localhost identified by 'amit26';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant select on bankdb.customer to 'amit10'@localhost;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant select on bankdb.account to 'amit10'@localhost;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create user 'manager10'@localhost identified by 'manager26';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant all privileges on bank.* to 'manager10'@localhost;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc customer;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| customerid | int          | NO   | PRI | NULL    |       |
+| Name       | varchar(100) | NO   |     | NULL    |       |
+| Address    | varchar(255) | NO   |     | NULL    |       |
+| contactno  | varchar(15)  | NO   |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table customer add Email varchar(20);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customer;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| customerid | int          | NO   | PRI | NULL    |       |
+| Name       | varchar(100) | NO   |     | NULL    |       |
+| Address    | varchar(255) | NO   |     | NULL    |       |
+| contactno  | varchar(15)  | NO   |     | NULL    |       |
+| Email      | varchar(20)  | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql>
