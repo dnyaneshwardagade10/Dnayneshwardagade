@@ -1,0 +1,131 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bankdb             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> use bankdb;
+Database changed
+mysql> desc employee;
++--------+--------------+------+-----+---------+----------------+
+| Field  | Type         | Null | Key | Default | Extra          |
++--------+--------------+------+-----+---------+----------------+
+| Emp_ID | int          | NO   | PRI | NULL    | auto_increment |
+| Name   | varchar(100) | NO   |     | NULL    |                |
+| Branch | varchar(100) | NO   |     | NULL    |                |
+| Role   | varchar(100) | NO   |     | NULL    |                |
++--------+--------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee alter column branch SET DEFAULT('Talegaon');
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++--------+--------------+------+-----+----------+----------------+
+| Field  | Type         | Null | Key | Default  | Extra          |
++--------+--------------+------+-----+----------+----------------+
+| Emp_ID | int          | NO   | PRI | NULL     | auto_increment |
+| Name   | varchar(100) | NO   |     | NULL     |                |
+| Branch | varchar(100) | NO   |     | Talegaon |                |
+| Role   | varchar(100) | NO   |     | NULL     |                |
++--------+--------------+------+-----+----------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> create database demo;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> drop database demo;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> alter table employee CHANGE EMP_ID Employee_id int;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++-------------+--------------+------+-----+----------+-------+
+| Field       | Type         | Null | Key | Default  | Extra |
++-------------+--------------+------+-----+----------+-------+
+| Employee_id | int          | NO   | PRI | NULL     |       |
+| Name        | varchar(100) | NO   |     | NULL     |       |
+| Branch      | varchar(100) | NO   |     | Talegaon |       |
+| Role        | varchar(100) | NO   |     | NULL     |       |
++-------------+--------------+------+-----+----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee MODIFY Employee_id INT NOT NULL;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++-------------+--------------+------+-----+----------+-------+
+| Field       | Type         | Null | Key | Default  | Extra |
++-------------+--------------+------+-----+----------+-------+
+| Employee_id | int          | NO   | PRI | NULL     |       |
+| Name        | varchar(100) | NO   |     | NULL     |       |
+| Branch      | varchar(100) | NO   |     | Talegaon |       |
+| Role        | varchar(100) | NO   |     | NULL     |       |
++-------------+--------------+------+-----+----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into employee(Employee_id,Name,Branch,Role) values('101','Rahul','CE','Student');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++-------------+-------+--------+---------+
+| Employee_id | Name  | Branch | Role    |
++-------------+-------+--------+---------+
+|         101 | Rahul | CE     | Student |
++-------------+-------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> desc customer;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| customerid | int          | NO   | PRI | NULL    |       |
+| Name       | varchar(100) | NO   |     | NULL    |       |
+| Address    | varchar(255) | NO   |     | NULL    |       |
+| contactno  | varchar(15)  | NO   |     | NULL    |       |
+| Email      | varchar(20)  | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into customer(customerid,Name,Address,contactno) values(1011,'Rajesh','Pune','98601971');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from customer;
++------------+--------+---------+-----------+
+| customerid | Name   | Address | contactno |
++------------+--------+---------+-----------+
+|       1011 | Rajesh | Pune    | 98601971  |
++------------+--------+---------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee;
++-------------+-------+--------+---------+
+| Employee_id | Name  | Branch | Role    |
++-------------+-------+--------+---------+
+|         101 | Rahul | CE     | Student |
++-------------+-------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> DELETE from employee where Name='Rahul';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values(101,'Raju','CE','Student');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee;
++-------------+------+--------+---------+
+| Employee_id | Name | Branch | Role    |
++-------------+------+--------+---------+
+|         101 | Raju | CE     | Student |
++-------------+------+--------+---------+
+1 row in set (0.00 sec)
