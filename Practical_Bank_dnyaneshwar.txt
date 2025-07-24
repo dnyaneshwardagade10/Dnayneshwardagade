@@ -1,0 +1,152 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bankdb             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use bankdb;
+Database changed
+mysql> show tables;
++------------------+
+| Tables_in_bankdb |
++------------------+
+| account          |
+| customer         |
+| customerview     |
+| employee         |
+| transaction      |
++------------------+
+5 rows in set (0.00 sec)
+
+mysql> desc account;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Account_no   | int         | NO   | PRI | NULL    |       |
+| Account_type | varchar(50) | NO   |     | NULL    |       |
+| Balance      | int         | NO   |     | NULL    |       |
+| customerid   | int         | NO   | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc customer;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| customerid | int          | NO   | PRI | NULL    |       |
+| Name       | varchar(100) | NO   |     | NULL    |       |
+| Address    | varchar(255) | NO   |     | NULL    |       |
+| contactno  | varchar(15)  | NO   |     | NULL    |       |
+| Balance    | int          | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> desc employee;
++-------------+--------------+------+-----+----------+-------+
+| Field       | Type         | Null | Key | Default  | Extra |
++-------------+--------------+------+-----+----------+-------+
+| Employee_id | int          | NO   | PRI | NULL     |       |
+| Name        | varchar(100) | NO   |     | NULL     |       |
+| Branch      | varchar(100) | NO   |     | Talegaon |       |
+| Role        | varchar(100) | NO   |     | NULL     |       |
++-------------+--------------+------+-----+----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc transaction;
++----------------+---------------+------+-----+---------+----------------+
+| Field          | Type          | Null | Key | Default | Extra          |
++----------------+---------------+------+-----+---------+----------------+
+| Transaction_id | int           | NO   | PRI | NULL    | auto_increment |
+| Account_no     | int           | NO   | MUL | NULL    |                |
+| Txn_Date       | date          | NO   | MUL | NULL    |                |
+| Txn_Time       | time          | NO   |     | NULL    |                |
+| Amount         | decimal(10,2) | NO   |     | NULL    |                |
++----------------+---------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer;
++------------+---------+---------+-----------+---------+
+| customerid | Name    | Address | contactno | Balance |
++------------+---------+---------+-----------+---------+
+|       1011 | Rajesh  | Pune    | 98601971  |   50000 |
+|       1012 | Siddesh | Pune    | 99238896  |   60000 |
++------------+---------+---------+-----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from account;
++------------+--------------+---------+------------+
+| Account_no | Account_type | Balance | customerid |
++------------+--------------+---------+------------+
+|        110 | Saving       |   50000 |       1011 |
+|        111 | Saving       |   60000 |       1012 |
++------------+--------------+---------+------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT c.Name, a.Account_no, a.Balance FROM Customer c JOIN Account a ON c.CustomerID = a.CustomerID WHERE a.Balance >= 0;
++---------+------------+---------+
+| Name    | Account_no | Balance |
++---------+------------+---------+
+| Rajesh  |        110 |   50000 |
+| Siddesh |        111 |   60000 |
++---------+------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customerview;
++---------+------------+---------+
+| Name    | Account_no | Balance |
++---------+------------+---------+
+| Rajesh  |        110 |   50000 |
+| Siddesh |        111 |   60000 |
++---------+------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> create index index1 on transaction(Txn_Date);
+ERROR 1061 (42000): Duplicate key name 'index1'
+mysql> create index index_01 on transaction(Txn_Date);
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> show indexes from transaction;
++-------------+------------+------------+--------------+----------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| Table       | Non_unique | Key_name   | Seq_in_index | Column_name    | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment | Visible | Expression |
++-------------+------------+------------+--------------+----------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+| transaction |          0 | PRIMARY    |            1 | Transaction_id | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| transaction |          1 | Account_no |            1 | Account_no     | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| transaction |          1 | index1     |            1 | Txn_Date       | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| transaction |          1 | index_1    |            1 | Txn_Date       | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
+| transaction |          1 | index_01   |            1 | Txn_Date       | A         |           0 |     NULL |   NULL |      | BTREE      |         |               | YES     | NULL       |
++-------------+------------+------------+--------------+----------------+-----------+-------------+----------+--------+------+------------+---------+---------------+---------+------------+
+5 rows in set (0.01 sec)
+
+mysql> select Name from customer where Name like 'S%';
++---------+
+| Name    |
++---------+
+| Siddesh |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select Name from customer where Name like 'R%';
++--------+
+| Name   |
++--------+
+| Rajesh |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select Balance from account where Balance between 400 and 100000;
++---------+
+| Balance |
++---------+
+|   50000 |
+|   60000 |
++---------+
+2 rows in set (0.01 sec)
+
+mysql>
