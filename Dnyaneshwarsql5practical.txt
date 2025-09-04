@@ -1,0 +1,108 @@
+SQL*Plus: Release 21.0.0.0.0 - Production on Thu Sep 4 09:55:08 2025
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Thu Sep 04 2025 09:52:29 +05:30
+
+Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+SQL> create table student_mark1(rollno int, name varchar(20), total_mark int);
+
+Table created.
+
+SQL> insert into student_mark1 values (101, 'Sathvik', 1200);
+
+1 row created.
+
+SQL> insert into student_mark1 values (102, 'Aryan', 950);
+
+1 row created.
+
+SQL> insert into student_mark1 values (103, 'Siddesh', 850);
+
+1 row created.
+
+SQL> create table student_result1(rollno int, name varchar2(20), grade varchar(20));
+
+Table created.
+
+SQL> @C:\Users\System05\Desktop\Dnyaneshwar\prog01.sql
+
+Procedure created.
+
+SQL> set serveroutput on
+SQL> @C:\Users\System05\Desktop\Dnyaneshwar\prog02.sql
+Enter value for r: 101
+old   7: r:=&r;
+new   7: r:=101;
+101Sathvik1st class with dist.
+one record inserted
+
+PL/SQL procedure successfully completed.
+
+SQL> @C:\Users\System05\Desktop\Dnyaneshwar\prog02.sql
+Enter value for r: 102
+old   7: r:=&r;
+new   7: r:=102;
+102Aryan1st class
+one record inserted
+
+PL/SQL procedure successfully completed.
+
+SQL> @C:\Users\System05\Desktop\Dnyaneshwar\prog02.sql
+Enter value for r: 103
+old   7: r:=&r;
+new   7: r:=103;
+103Siddesh2nd class
+one record inserted
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from student_result1;
+
+    ROLLNO NAME                 GRADE
+---------- -------------------- --------------------
+       101 Sathvik              1st class with dist.
+       102 Aryan                1st class
+       103 Siddesh              2nd class
+
+SQL>
+
+
+
+
+create or replace procedure  proc_grade (r in int, gt in int, grade out varchar2)
+is 
+begin
+if gt <= 1500 and gt >= 990 then
+grade:='1st class with dist.';
+elsif gt <= 989 and gt >= 900 then
+grade:='1st class';
+elsif gt <= 899 and gt >= 825 then
+grade:='2nd class';
+else
+grade:='Fail';
+end if;
+end;
+/
+
+
+declare
+r int;
+total int;
+nm varchar2(20);
+gr varchar2(20);
+begin
+r:=&r;
+select rollno,name,total_mark into r,nm,total from student_mark1 where rollno =r;
+proc_grade(r,total,gr);
+dbms_output.put_line(r||nm||gr);
+insert into student_result1 (rollno,name,grade)values(r,nm,gr);
+dbms_output.put_line('one record inserted');
+end;
+/
