@@ -1,0 +1,95 @@
+
+SQL*Plus: Release 21.0.0.0.0 - Production on Sun Sep 7 14:54:18 2025
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Sun Sep 07 2025 14:22:23 +05:30
+
+Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+
+SQL> CREATE TABLE borrower1 (Roll_no NUMBER(3) PRIMARY KEY,Name VARCHAR2(50),Date_of_Issue DATE,NameOfBook VARCHAR2(100),Status CHAR(1) -- 'I' = Issued, 'R' = Returned);
+
+Table created.
+
+SQL> CREATE TABLE fine1 (
+  2      Roll_no   NUMBER(3),
+  3      FineDate  DATE,
+  4      Amt       NUMBER(6,2),
+  5      CONSTRAINT fk_roll FOREIGN KEY (Roll_no) REFERENCES borrower(ROLLNO)
+  6  );
+
+Table created.
+
+SQL> INSERT INTO borrower1 (Roll_no, Name, Date_of_Issue, NameOfBook, Status)  VALUES (101, 'Rahul', TO_DATE('15-AUG-2025','DD-MON-YYYY'), 'DBMS', 'I');
+
+SQL> INSERT INTO borrower1 (Roll_no, Name, Date_of_Issue, NameOfBook, Status) VALUES (102, 'Sneha', TO_DATE('25-JUL-2025','DD-MON-YYYY'), 'PLSQL', 'I');
+  
+SQL> INSERT INTO borrower1 (Roll_no, Name, Date_of_Issue, NameOfBook, Status)  VALUES (103, 'Sathvik', TO_DATE('01-AUG-2025','DD-MON-YYYY'), 'JAVA', 'I');
+
+SQL> INSERT INTO borrower1 (Roll_no, Name, Date_of_Issue, NameOfBook, Status) VALUES (104, 'Aryan', TO_DATE('10-JUL-2025','DD-MON-YYYY'), 'PYTHON', 'I');
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from borrower1;
+
+
+    Roll_no Name             Date_of_issue   NameofBook  Status
+-----------------------------------------------------------
+    101     Rahul            15-AUG-2025     DBMS          I
+    102     Sneha            25-JUL-2025     PLSQL         I
+    103     Sathvik          01-AUG-2025     JAVA          I
+    104     Aryan            10-JUL-2025     PYTHON        I
+
+
+SQL> set serveroutput on
+
+SQL> @C:\Users\DNYANESHWAR\Desktop\Dnyaneshwarsql\book1.sql
+Enter value for r: 101
+old   9:     R := &R;
+new   9:     R := 101;
+Enter value for bn: DBMS
+old  10:     Bn := '&Bn';
+new  10:     Bn := 'DBMS';
+Fine: 118.14
+
+
+SQL> @C:\Users\DNYANESHWAR\Desktop\Dnyaneshwarsql\book1.sql
+Enter value for r: 102
+old   9:     R := &R;
+new   9:     R := 102;
+Enter value for bn: PLSQL
+old  10:     Bn := '&Bn';
+new  10:     Bn := 'PLSQL';
+Fine: 2231.47
+
+PL/SQL procedure successfully completed.
+
+SQL> @C:\Users\DNYANESHWAR\Desktop\Dnyaneshwarsql\book1.sql
+Enter value for r: 103
+old   9:     R := &R;
+new   9:     R := 103;
+Enter value for bn: JAVA
+old  10:     Bn := '&Bn';
+new  10:     Bn := 'JAVA';
+Fine: 1881.48
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from fine1;
+
+   ROLL_NO FINEDATE         AMT
+---------- --------- ----------
+       101 07-SEP-25     118.14
+       102 07-SEP-25    2231.47
+       103 07-SEP-25    1881.48
+
+SQL>
