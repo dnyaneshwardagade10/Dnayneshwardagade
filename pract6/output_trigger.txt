@@ -1,0 +1,119 @@
+
+SQL*Plus: Release 21.0.0.0.0 - Production on Wed Sep 10 19:16:59 2025
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Wed Sep 10 2025 14:57:15 +05:30
+
+Connected to:
+Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Version 21.3.0.0.0
+
+SQL> create table client_master(srno int,name varchar(20));
+
+Table created.
+
+SQL> create table audit_d as select * from client_master;
+
+Table created.
+
+SQL> insert into client_master values(101,'Sathvik');
+
+1 row created.
+
+SQL> insert into client_master values(102,'Sathvik');
+
+1 row created.
+
+SQL> insert into client_master values(103,'Aryan');
+
+1 row created.
+
+
+SQL> @C:\Users\DNYANESHWAR\Desktop\Dnyaneshwarsql\trigger.sql
+
+Trigger created.
+
+SQL> select * from client_master;
+
+      SRNO NAME
+---------- --------------------
+       101 Sathvik
+       102 Siddesh
+       103 Aryan
+
+SQL> update client_master set name='utkarsh' where srno=102;
+
+1 row updated.
+
+SQL> select * from client_master;
+
+      SRNO NAME
+---------- --------------------
+       101 Sathvik
+       102 utkarsh
+       103 Aryan
+
+SQL> select * from audit_d;
+
+      SRNO NAME
+---------- --------------------
+       102 Siddesh
+
+SQL> delete from client_master where srno = 103;
+
+1 row deleted.
+
+SQL> select * from audit_d;
+
+      SRNO NAME
+---------- --------------------
+       102 Siddesh
+       103 Aryan
+
+SQL> commit;
+
+Commit complete.
+
+SQL> @C:\Users\DNYANESHWAR\Desktop\Dnyaneshwarsql\insert.sql
+
+Trigger created.
+
+SQL> select * from insertbackup;
+
+      SRNO NAME
+---------- --------------------
+       101 Sathvik
+       102 utkarsh
+
+SQL> @C:\Users\DNYANESHWAR\Desktop\Dnyaneshwarsql\audit_insert.sql
+
+Trigger created.
+
+SQL> insert into client_master values(103,'Sarthak');
+
+1 row created.
+
+SQL> select * from audit_d;
+
+      SRNO NAME
+---------- --------------------
+       102 Siddesh
+       103 Aryan
+
+SQL> select * from client_master;
+
+      SRNO NAME
+---------- --------------------
+       101 Sathvik
+       102 utkarsh
+       103 Sarthak
+
+SQL> @C:\Users\DNYANESHWAR\Desktop\Dnyaneshwarsql\audit_update.sql
+
+Trigger created.
+
+SQL>
