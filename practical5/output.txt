@@ -57,6 +57,7 @@ Done fetching products.
 
 PL/SQL procedure successfully completed.
 
+SQL> set serveroutput on
 SQL> @C:\Users\DNYANESHWAR\Desktop\Dnyaneshwarsql\update.sql
 Prices updated.
 
@@ -66,8 +67,7 @@ SQL> select * from product;
 
        PID PNAME                     PRICE
 ---------- -------------------- ----------
-       101 Soap                         12
-       102 Shampoo                     121
-       103 Earphones                  1210
+       101 Soap                         25
+       102 Shampoo                     254
+       103 Earphones                  2541
 
-SQL>
