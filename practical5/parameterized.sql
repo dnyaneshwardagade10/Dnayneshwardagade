@@ -8,9 +8,8 @@ DECLARE
   p_pname product.pname%TYPE;
   p_price product.price%TYPE;
 
-  v_input NUMBER;  -- variable to hold user input
+  v_input NUMBER;  
 BEGIN
-  -- Take input from user
   v_input := &enter_price;
 
   DBMS_OUTPUT.PUT_LINE('Starting to fetch products above price ' || v_input || '...');
@@ -29,6 +28,7 @@ EXCEPTION
     DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);
 END;
 /
+
 
 
 
