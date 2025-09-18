@@ -1,8 +1,8 @@
-CREATE OR REPLACE TRIGGER audit_update
-BEFORE DELETE OR UPDATE ON audit_d
+CREATE OR REPLACE TRIGGER update_delete_audit_d
+BEFORE UPDATE OR DELETE ON audit_d
 BEGIN
-  IF TO_NUMBER(TO_CHAR(SYSDATE, 'HH24')) NOT BETWEEN 9 AND 18 THEN
-    RAISE_APPLICATION_ERROR(-20003, 'Updates/deletes allowed only between 9 AM and 6 PM');
+  IF UPPER(TO_CHAR(SYSDATE, 'MON')) = 'SEP' THEN
+    RAISE_APPLICATION_ERROR(-20002, 'Cannot update or delete in September');
   END IF;
 END;
 /
