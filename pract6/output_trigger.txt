@@ -78,6 +78,10 @@ SQL> commit;
 
 Commit complete.
 
+SQL> create table insertbackup as select * from client_master;
+
+Table created.
+
 SQL> @C:\Users\DNYANESHWAR\Desktop\Dnyaneshwarsql\insert.sql
 
 Trigger created.
@@ -93,27 +97,26 @@ SQL> @C:\Users\DNYANESHWAR\Desktop\Dnyaneshwarsql\audit_insert.sql
 
 Trigger created.
 
-SQL> insert into client_master values(103,'Sarthak');
+SQL> INSERT INTO audit_d VALUES (105, 'CheckTrigger');
+INSERT INTO audit_d VALUES (105, 'CheckTrigger')
+            *
+ERROR at line 1:
+ORA-20001: Cannot delete or insert in September
+ORA-06512: at "SYSTEM.INSERT_AUDIT_D", line 3
+ORA-04088: error during execution of trigger 'SYSTEM.INSERT_AUDIT_D'
 
-1 row created.
 
-SQL> select * from audit_d;
-
-      SRNO NAME
----------- --------------------
-       102 Siddesh
-       103 Aryan
-
-SQL> select * from client_master;
-
-      SRNO NAME
----------- --------------------
-       101 Sathvik
-       102 utkarsh
-       103 Sarthak
 
 SQL> @C:\Users\DNYANESHWAR\Desktop\Dnyaneshwarsql\audit_update.sql
 
 Trigger created.
+
+SQL> UPDATE audit_d SET name = 'Suhas' WHERE srno = 105;
+UPDATE audit_d SET name = 'Suhas' WHERE srno = 105
+       *
+ERROR at line 1:
+ORA-20002: Cannot update or delete in September
+ORA-06512: at "SYSTEM.UPDATE_DELETE_AUDIT_d", line 3
+ORA-04088: error during execution of trigger 'SYSTEM.UPDATE_DELETE_AUDIT_d'
 
 SQL>
