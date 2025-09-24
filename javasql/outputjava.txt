@@ -1,0 +1,93 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 23
+Server version: 9.3.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| bank               |
+| dnyaneshwar        |
+| information_schema |
+| mysql              |
+| newbank            |
+| operation          |
+| performance_schema |
+| personalexpense    |
+| studdemo           |
+| studentdetail      |
+| studentinfo        |
+| sys                |
++--------------------+
+12 rows in set (0.022 sec)
+
+mysql> use studentinfo
+Database changed
+mysql> show tables;
++-----------------------+
+| Tables_in_studentinfo |
++-----------------------+
+| studinfo              |
++-----------------------+
+1 row in set (0.024 sec)
+
+mysql> select * from studinfo;
++--------+--------+---------+
+| rollno | Name   | Address |
++--------+--------+---------+
+|     10 | Rohit  | Pune    |
+|     12 | Raj    | Mumbai  |
+|     11 | Ritesh | Pune    |
++--------+--------+---------+
+3 rows in set (0.010 sec)
+
+1. Insert
+2. Update
+3. Delete
+Enter choice: 2
+Enter Roll No to Update: 12
+Enter New Name: Yash
+Record Updated!
+
+mysql> select * from studinfo;
++--------+--------+---------+
+| rollno | Name   | Address |
++--------+--------+---------+
+|     10 | Rohit  | Pune    |
+|     12 | Yash   | Mumbai  |
+|     11 | Ritesh | Pune    |
++--------+--------+---------+
+3 rows in set (0.009 sec)
+
+Choose Operation:
+1. Insert
+2. Update
+3. Delete
+Enter choice: 3
+Enter Roll No to Delete: 11
+Record Deleted!
+
+mysql> select * from studinfo;
++--------+-------+---------+
+| rollno | Name  | Address |
++--------+-------+---------+
+|     10 | Rohit | Pune    |
+|     12 | Yash  | Mumbai  |
++--------+-------+---------+
+2 rows in set (0.009 sec)
+
+mysql>
+
+
+
+
+
