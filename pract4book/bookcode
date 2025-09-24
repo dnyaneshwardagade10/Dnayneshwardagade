@@ -9,48 +9,47 @@ BEGIN
     R := &R; 
     Bn := '&Bn'; 
 
-    BEGIN
-        -- Get date of issue
-        SELECT Date_of_Issue 
-        INTO DOI 
-        FROM borrower1 
-        WHERE Roll_no = R AND NameOfBook = Bn AND Status = 'I';
+    SELECT Date_of_Issue 
+    INTO DOI 
+    FROM borrower1 
+    WHERE Roll_no = R AND NameOfBook = Bn AND Status = 'I';
 
-        -- Calculate difference in days
-        days := DR - DOI;
+    days := DR - DOI;
 
-        -- Fine calculation
-        IF days < 15 THEN 
-            Amt := 0; 
-            DBMS_OUTPUT.PUT_LINE('No fine'); 
-            
-            UPDATE borrower1  
-            SET Status = 'R' 
-            WHERE Roll_no = R AND NameOfBook = Bn; 
+    IF days < 15 THEN 
+        DBMS_OUTPUT.PUT_LINE('No fine'); 
+        UPDATE borrower1  
+        SET Status = 'R' 
+        WHERE Roll_no = R AND NameOfBook = Bn; 
+    END IF;
 
-            INSERT INTO fine1 (Roll_no, FineDate, Amt) 
-            VALUES (R, DR, Amt);
+    IF days >= 15 AND days < 30 THEN
+        Amt := days * 5;
+        DBMS_OUTPUT.PUT_LINE('Fine: ' || Amt); 
+        UPDATE borrower1  
+        SET Status = 'R' 
+        WHERE Roll_no = R AND NameOfBook = Bn; 
+    END IF;
 
-        ELSIF days >= 15 AND days < 30 THEN 
-            Amt := days * 5; 
-            INSERT INTO fine1 (Roll_no, FineDate, Amt) 
-            VALUES (R, DR, Amt); 
-            DBMS_OUTPUT.PUT_LINE('Fine: ' || Amt); 
+    IF days >= 30 THEN
+        Amt := days * 50;
+        DBMS_OUTPUT.PUT_LINE('Fine: ' || Amt); 
+        UPDATE borrower1  
+        SET Status = 'R' 
+        WHERE Roll_no = R AND NameOfBook = Bn; 
+    END IF;
 
-        ELSIF days >= 30 THEN 
-            Amt := days * 50; 
-            INSERT INTO fine1 (Roll_no, FineDate, Amt) 
-            VALUES (R, DR, Amt); 
-            DBMS_OUTPUT.PUT_LINE('Fine: ' || Amt); 
-        END IF;
+    INSERT INTO fine1 (Roll_no, FineDate, Amt) 
+    VALUES (R, DR, NVL(Amt,0));
 
-        COMMIT;
+    COMMIT;
 
-    EXCEPTION
-        WHEN NO_DATA_FOUND THEN
-            DBMS_OUTPUT.PUT_LINE('No matching issued book found.');
-        WHEN OTHERS THEN
-            DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
-    END;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('No matching issued book found.');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
 END;
 /
+
+
