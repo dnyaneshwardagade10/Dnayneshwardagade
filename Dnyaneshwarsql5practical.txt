@@ -37,31 +37,10 @@ Procedure created.
 
 SQL> set serveroutput on
 SQL> @C:\Users\System05\Desktop\Dnyaneshwar\prog02.sql
-Enter value for r: 101
-old   7: r:=&r;
-new   7: r:=101;
-101Sathvik1st class with dist.
-one record inserted
-
-PL/SQL procedure successfully completed.
-
-SQL> @C:\Users\System05\Desktop\Dnyaneshwar\prog02.sql
-Enter value for r: 102
-old   7: r:=&r;
-new   7: r:=102;
-102Aryan1st class
-one record inserted
-
-PL/SQL procedure successfully completed.
-
-SQL> @C:\Users\System05\Desktop\Dnyaneshwar\prog02.sql
-Enter value for r: 103
-old   7: r:=&r;
-new   7: r:=103;
-103Siddesh2nd class
-one record inserted
-
-PL/SQL procedure successfully completed.
+101 Sathvik 1st class with dist.
+102 Aryan 1st class
+103 Siddesh 2nd class
+All records processed and inserted.
 
 SQL> select * from student_result1;
 
@@ -92,17 +71,21 @@ end;
 /
 
 
-declare
-r int;
-total int;
-nm varchar2(20);
-gr varchar2(20);
-begin
-r:=&r;
-select rollno,name,total_mark into r,nm,total from student_mark1 where rollno =r;
-proc_grade(r,total,gr);
-dbms_output.put_line(r||nm||gr);
-insert into student_result1 (rollno,name,grade)values(r,nm,gr);
-dbms_output.put_line('one record inserted');
-end;
+DECLARE
+r      student_mark1.rollno%TYPE;
+total  student_mark1.total_mark%TYPE;
+nm     student_mark1.name%TYPE;
+gr     VARCHAR2(20);
+BEGIN
+FOR rec IN (SELECT rollno, name, total_mark FROM student_mark1) LOOP
+r := rec.rollno;
+nm := rec.name;
+total := rec.total_mark;
+proc_grade(r, total, gr);  
+DBMS_OUTPUT.PUT_LINE(r || ' ' || nm || ' ' || gr);
+INSERT INTO student_result1 (rollno, name, grade)
+VALUES (r, nm, gr);
+END LOOP;
+DBMS_OUTPUT.PUT_LINE('All records processed and inserted.');
+END;
 /
