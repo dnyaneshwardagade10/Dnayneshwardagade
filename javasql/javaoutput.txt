@@ -1,0 +1,81 @@
+Choose Operation:
+1. Insert
+2. Update
+3. Delete
+4. Display
+5. Exit
+Enter choice: 1
+Enter Roll No: 10
+Enter Name: Messi
+Enter Address: Argentia
+Record Inserted!
+Choose Operation:
+1. Insert
+2. Update
+3. Delete
+4. Display
+5. Exit
+Enter choice: 1
+Enter Roll No: 11
+Enter Name: Jonathan
+Enter Address: Mumbai
+Record Inserted!
+Choose Operation:
+1. Insert
+2. Update
+3. Delete
+4. Display
+5. Exit
+Enter choice: 1
+Enter Roll No: 12
+Enter Name: Rohit 
+Enter Address: Mumbai
+Record Inserted!
+Choose Operation:
+1. Insert
+2. Update
+3. Delete
+4. Display
+5. Exit
+Enter choice: 1
+Enter Roll No: 13
+Enter Name: Ritika 
+Enter Address: Mumbai
+Record Inserted!
+Choose Operation:
+1. Insert
+2. Update
+3. Delete
+4. Display
+5. Exit
+Enter choice: 2
+Enter Roll No to Update: 10
+Enter New Name: Sachin
+Record Updated!
+Choose Operation:
+1. Insert
+2. Update
+3. Delete
+4. Display
+5. Exit
+Enter choice: 3
+Enter Roll No to Delete: 10
+Record Deleted!
+Choose Operation:
+1. Insert
+2. Update
+3. Delete
+4. Display
+5. Exit
+Enter choice: 4
+Roll No	Name	 Address
+11	Jonathan Mumbai
+12	Rohit	 Mumbai
+13	Ritika	 Mumbai
+Choose Operation:
+1. Insert
+2. Update
+3. Delete
+4. Display
+5. Exit
+Enter choice: 
