@@ -63,16 +63,6 @@ collegeinfo> db.students.find();
     marks: 80
   }
 ]
-collegeinfo> db.stud.insertOne({
-...   rollno: 10,
-...   name: "Siddesh",
-...   class: "TE",
-...   marks: 90
-... });
-{
-  acknowledged: true,
-  insertedId: ObjectId('68e863e22759dfbc67cebea7')
-}
 collegeinfo> db.students.find();
 [
   {
