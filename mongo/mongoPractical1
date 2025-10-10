@@ -1,0 +1,161 @@
+Microsoft Windows [Version 10.0.22631.5624]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MongoDB\Server\8.2\bin>mongosh
+Current Mongosh Log ID: 68e862ae2759dfbc67cebea3
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          8.2.1
+Using Mongosh:          2.5.8
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-10-09T20:45:52.278+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs;
+admin        40.00 KiB
+collegeinfo   8.00 KiB
+config       48.00 KiB
+local        40.00 KiB
+test> use collegeinfo;
+switched to db collegeinfo
+collegeinfo> db.createCollection("Student");
+{ ok: 1 }
+
+collegeinfo> db.students.insertMany([
+...   {
+...     roll_no: 11,
+...     name: "Utkarsh",
+...     class: "TE",
+...     marks: 70
+...   },
+...   {
+...     roll_no: 12,
+...     name: "Rahul",
+...     class: "TE",
+...     marks: 80
+...   }
+... ]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68e8638c2759dfbc67cebea5'),
+    '1': ObjectId('68e8638c2759dfbc67cebea6')
+  }
+}
+
+collegeinfo> db.students.find();
+[
+  {
+    _id: ObjectId('68e8638c2759dfbc67cebea5'),
+    roll_no: 11,
+    name: 'Utkarsh',
+    class: 'TE',
+    marks: 70
+  },
+  {
+    _id: ObjectId('68e8638c2759dfbc67cebea6'),
+    roll_no: 12,
+    name: 'Rahul',
+    class: 'TE',
+    marks: 80
+  }
+]
+collegeinfo> db.stud.insertOne({
+...   rollno: 10,
+...   name: "Siddesh",
+...   class: "TE",
+...   marks: 90
+... });
+{
+  acknowledged: true,
+  insertedId: ObjectId('68e863e22759dfbc67cebea7')
+}
+collegeinfo> db.students.find();
+[
+  {
+    _id: ObjectId('68e8638c2759dfbc67cebea5'),
+    roll_no: 11,
+    name: 'Utkarsh',
+    class: 'TE',
+    marks: 70
+  },
+  {
+    _id: ObjectId('68e8638c2759dfbc67cebea6'),
+    roll_no: 12,
+    name: 'Rahul',
+    class: 'TE',
+    marks: 80
+  }
+]
+collegeinfo> db.students.updateOne(
+...   { roll_no: 11 },
+...   { $set: { marks: 75 } }
+... );
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+collegeinfo> db.students.find();
+[
+  {
+    _id: ObjectId('68e8638c2759dfbc67cebea5'),
+    roll_no: 11,
+    name: 'Utkarsh',
+    class: 'TE',
+    marks: 75
+  },
+  {
+    _id: ObjectId('68e8638c2759dfbc67cebea6'),
+    roll_no: 12,
+    name: 'Rahul',
+    class: 'TE',
+    marks: 80
+  }
+]
+collegeinfo> db.students.updateMany(
+...   { class: "TE" },
+...   { $set: { class: "Third Year" } }
+... );
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 2,
+  upsertedCount: 0
+}
+collegeinfo> db.students.find();
+[
+  {
+    _id: ObjectId('68e8638c2759dfbc67cebea5'),
+    roll_no: 11,
+    name: 'Utkarsh',
+    class: 'Third Year',
+    marks: 75
+  },
+  {
+    _id: ObjectId('68e8638c2759dfbc67cebea6'),
+    roll_no: 12,
+    name: 'Rahul',
+    class: 'Third Year',
+    marks: 80
+  }
+]
+collegeinfo> db.students.deleteOne({ roll_no: 11 });
+{ acknowledged: true, deletedCount: 1 }
+collegeinfo> db.students.find();
+[
+  {
+    _id: ObjectId('68e8638c2759dfbc67cebea6'),
+    roll_no: 12,
+    name: 'Rahul',
+    class: 'Third Year',
+    marks: 80
+  }
+]
+collegeinfo>
