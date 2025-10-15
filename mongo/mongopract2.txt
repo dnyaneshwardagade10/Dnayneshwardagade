@@ -1,0 +1,371 @@
+Microsoft Windows [Version 10.0.22631.5624]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Program Files\MongoDB\Server\8.2\bin>mongosh
+Current Mongosh Log ID: 68ef8e034e5558203fcebea3
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.5.8
+Using MongoDB:          8.2.1
+Using Mongosh:          2.5.8
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2025-10-15T11:36:55.512+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> use cricket_db;
+switched to db cricket_db
+cricket_db> db.createCollection("player")
+{ ok: 1 }
+cricket_db> db.player.insertMany([
+...   {
+...     playerid: 1,
+...     name: "Rohit Sharma",
+...     role: "Batsman",
+...     team: "India",
+...     batting_style: "Right-hand bat",
+...     bowling_style: "Right-arm offbreak",
+...     matches_played: 273,
+...     runs: 11168,
+...     strike_rate: 92.80,
+...     wickets: 9
+...   },
+...   {
+...     playerid: 2,
+...     name: "Ravindra Jadeja",
+...     role: "All-rounder",
+...     team: "India",
+...     batting_style: "Left-hand bat",
+...     bowling_style: "Left-arm orthodox",
+...     matches_played: 87,
+...     runs: 3990,
+...     strike_rate: 55.31,
+...     wickets: 399
+...   },
+...   {
+...     playerid: 3,
+...     name: "Yashasvi Jaiswal",
+...     role: "Batsman",
+...     team: "India",
+...     batting_style: "Left-hand bat",
+...     bowling_style: "Right-arm legbreak",
+...     matches_played: 26,
+...     runs: 2428,
+...     strike_rate: 214,
+...     wickets: 0
+...   },
+...   {
+...     playerid: 4,
+...     name: "Jasprit Bumrah",
+...     role: "Bowler",
+...     team: "India",
+...     batting_style: "Right-hand bat",
+...     bowling_style: "Right-arm fast",
+...     matches_played: 150,
+...     runs: 450,
+...     strike_rate: 70.2,
+...     wickets: 250
+...   }
+... ]);
+...
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68ef8f7d4e5558203fcebea4'),
+    '1': ObjectId('68ef8f7d4e5558203fcebea5'),
+    '2': ObjectId('68ef8f7d4e5558203fcebea6'),
+    '3': ObjectId('68ef8f7d4e5558203fcebea7')
+  }
+}
+cricket_db> db.player.find();
+[
+  {
+    _id: ObjectId('68ef8f7d4e5558203fcebea4'),
+    playerid: 1,
+    name: 'Rohit Sharma',
+    role: 'Batsman',
+    team: 'India',
+    batting_style: 'Right-hand bat',
+    bowling_style: 'Right-arm offbreak',
+    matches_played: 273,
+    runs: 11168,
+    strike_rate: 92.8,
+    wickets: 9
+  },
+  {
+    _id: ObjectId('68ef8f7d4e5558203fcebea5'),
+    playerid: 2,
+    name: 'Ravindra Jadeja',
+    role: 'All-rounder',
+    team: 'India',
+    batting_style: 'Left-hand bat',
+    bowling_style: 'Left-arm orthodox',
+    matches_played: 87,
+    runs: 3990,
+    strike_rate: 55.31,
+    wickets: 399
+  },
+  {
+    _id: ObjectId('68ef8f7d4e5558203fcebea6'),
+    playerid: 3,
+    name: 'Yashasvi Jaiswal',
+    role: 'Batsman',
+    team: 'India',
+    batting_style: 'Left-hand bat',
+    bowling_style: 'Right-arm legbreak',
+    matches_played: 26,
+    runs: 2428,
+    strike_rate: 214,
+    wickets: 0
+  },
+  {
+    _id: ObjectId('68ef8f7d4e5558203fcebea7'),
+    playerid: 4,
+    name: 'Jasprit Bumrah',
+    role: 'Bowler',
+    team: 'India',
+    batting_style: 'Right-hand bat',
+    bowling_style: 'Right-arm fast',
+    matches_played: 150,
+    runs: 450,
+    strike_rate: 70.2,
+    wickets: 250
+  }
+]
+cricket_db> db.player.insertOne({
+...   teamid: 1,
+...   team_name: "India",
+...   captain: "Rohit Sharma",
+...   players: ["Rohit Sharma", "Ravindra Jadeja", "Yashasvi Jaiswal", "Jasprit Bumrah"]
+... });
+...
+{
+  acknowledged: true,
+  insertedId: ObjectId('68ef908e4e5558203fcebea8')
+}
+cricket_db> db.matches.insertOne({
+...   match_id: 104,
+...   teams: ["India", "Pakistan"],
+...   toss: "India",
+...   match_time: ISODate("2025-10-25T14:00:00Z"),
+...   result: "India won by 7 wickets"
+... });
+...
+{
+  acknowledged: true,
+  insertedId: ObjectId('68ef91284e5558203fcebea9')
+}
+cricket_db> db.matches.insertOne({
+...   match_id: 101,
+...   teams: ["India", "Australia"],
+...   toss: "India",
+...   match_time: ISODate("2025-10-15T09:30:00Z"),
+...   result: "India won by 6 wickets"
+... });
+...
+{
+  acknowledged: true,
+  insertedId: ObjectId('68ef91384e5558203fcebeaa')
+}
+cricket_db> db.matches.insertOne({
+...   match_id: 108,
+...   teams: ["India", "South Africa"],
+...   toss: "India",
+...   Match_Time: ISODate("2025-11-10T14:00:00Z"),
+...   result: "Match cancelled due to heavy rains"
+... });
+...
+{
+  acknowledged: true,
+  insertedId: ObjectId('68ef91914e5558203fcebeab')
+}
+cricket_db> db.player.find({ strike_rate:{$gt:100}, role:"Batsman" })
+[
+  {
+    _id: ObjectId('68ef8f7d4e5558203fcebea6'),
+    playerid: 3,
+    name: 'Yashasvi Jaiswal',
+    role: 'Batsman',
+    team: 'India',
+    batting_style: 'Left-hand bat',
+    bowling_style: 'Right-arm legbreak',
+    matches_played: 26,
+    runs: 2428,
+    strike_rate: 214,
+    wickets: 0
+  }
+]
+cricket_db> db.player.updateOne( { playerid: 1 }, { $inc: { runs: 100, matchmatches_played: 2 } } )
+...
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+cricket_db> db.matches.deleteOne({match_id:101})
+{ acknowledged: true, deletedCount: 1 }
+cricket_db> db.matches.deleteMany({result:"Match cancelled due to heavy rains"})
+{ acknowledged: true, deletedCount: 1 }
+cricket_db> db.matches.find();
+[
+  {
+    _id: ObjectId('68ef91284e5558203fcebea9'),
+    match_id: 104,
+    teams: [ 'India', 'Pakistan' ],
+    toss: 'India',
+    match_time: ISODate('2025-10-25T14:00:00.000Z'),
+    result: 'India won by 7 wickets'
+  }
+]
+cricket_db> db.player.find({
+...   $and: [
+...     { role: "Batsman" },
+...     { strike_rate: { $gt: 100 } }
+...   ]
+... }).pretty();
+...
+[
+  {
+    _id: ObjectId('68ef8f7d4e5558203fcebea6'),
+    playerid: 3,
+    name: 'Yashasvi Jaiswal',
+    role: 'Batsman',
+    team: 'India',
+    batting_style: 'Left-hand bat',
+    bowling_style: 'Right-arm legbreak',
+    matches_played: 26,
+    runs: 2428,
+    strike_rate: 214,
+    wickets: 0
+  }
+]
+cricket_db> db.player.find({
+...   $or: [
+...     { role: "All-rounder" },
+...     { role: "Bowler" }
+...   ]
+... }).pretty();
+...
+[
+  {
+    _id: ObjectId('68ef8f7d4e5558203fcebea5'),
+    playerid: 2,
+    name: 'Ravindra Jadeja',
+    role: 'All-rounder',
+    team: 'India',
+    batting_style: 'Left-hand bat',
+    bowling_style: 'Left-arm orthodox',
+    matches_played: 87,
+    runs: 3990,
+    strike_rate: 55.31,
+    wickets: 399
+  },
+  {
+    _id: ObjectId('68ef8f7d4e5558203fcebea7'),
+    playerid: 4,
+    name: 'Jasprit Bumrah',
+    role: 'Bowler',
+    team: 'India',
+    batting_style: 'Right-hand bat',
+    bowling_style: 'Right-arm fast',
+    matches_played: 150,
+    runs: 450,
+    strike_rate: 70.2,
+    wickets: 250
+  }
+]
+cricket_db> db.player.find({
+...   $nor: [
+...     { role: "Batsman" },
+...     { role: "All-rounder" }
+...   ]
+... }).pretty();
+...
+[
+  {
+    _id: ObjectId('68ef8f7d4e5558203fcebea7'),
+    playerid: 4,
+    name: 'Jasprit Bumrah',
+    role: 'Bowler',
+    team: 'India',
+    batting_style: 'Right-hand bat',
+    bowling_style: 'Right-arm fast',
+    matches_played: 150,
+    runs: 450,
+    strike_rate: 70.2,
+    wickets: 250
+  },
+  {
+    _id: ObjectId('68ef908e4e5558203fcebea8'),
+    teamid: 1,
+    team_name: 'India',
+    captain: 'Rohit Sharma',
+    players: [
+      'Rohit Sharma',
+      'Ravindra Jadeja',
+      'Yashasvi Jaiswal',
+      'Jasprit Bumrah'
+    ]
+  }
+]
+cricket_db> db.player.find({
+...   strike_rate: { $not: { $gt: 100 } }
+... }).pretty();
+...
+[
+  {
+    _id: ObjectId('68ef8f7d4e5558203fcebea4'),
+    playerid: 1,
+    name: 'Rohit Sharma',
+    role: 'Batsman',
+    team: 'India',
+    batting_style: 'Right-hand bat',
+    bowling_style: 'Right-arm offbreak',
+    matches_played: 275,
+    runs: 11268,
+    strike_rate: 92.8,
+    wickets: 9
+  },
+  {
+    _id: ObjectId('68ef8f7d4e5558203fcebea5'),
+    playerid: 2,
+    name: 'Ravindra Jadeja',
+    role: 'All-rounder',
+    team: 'India',
+    batting_style: 'Left-hand bat',
+    bowling_style: 'Left-arm orthodox',
+    matches_played: 87,
+    runs: 3990,
+    strike_rate: 55.31,
+    wickets: 399
+  },
+  {
+    _id: ObjectId('68ef8f7d4e5558203fcebea7'),
+    playerid: 4,
+    name: 'Jasprit Bumrah',
+    role: 'Bowler',
+    team: 'India',
+    batting_style: 'Right-hand bat',
+    bowling_style: 'Right-arm fast',
+    matches_played: 150,
+    runs: 450,
+    strike_rate: 70.2,
+    wickets: 250
+  },
+  {
+    _id: ObjectId('68ef908e4e5558203fcebea8'),
+    teamid: 1,
+    team_name: 'India',
+    captain: 'Rohit Sharma',
+    players: [
+      'Rohit Sharma',
+      'Ravindra Jadeja',
+      'Yashasvi Jaiswal',
+      'Jasprit Bumrah'
+    ]
+  }
+]
+cricket_db>
