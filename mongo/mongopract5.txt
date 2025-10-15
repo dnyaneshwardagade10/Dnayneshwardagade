@@ -27,7 +27,7 @@ try:
             pprice = float(input("Enter Product Price (pprice): "))
             record = {"pid": pid, "pname": pname, "pprice": pprice}
             collection.insert_one(record)
-            print("✅ Product inserted successfully.")
+            print(" Product inserted successfully.")
 
         case 2:
             print("\n--- All Products ---")
@@ -40,24 +40,24 @@ try:
             search_pid = int(input("Enter PID to search: "))
             result = collection.find_one({"pid": search_pid})
             if result:
-                print(f"✅ Product Found: PID={result['pid']}, Name={result['pname']}, Price=₹{result['pprice']}")
+                print(f" Product Found: PID={result['pid']}, Name={result['pname']}, Price=₹{result['pprice']}")
             else:
-                print("❌ No product found with that PID.")
+                print(" No product found with that PID.")
 
         case 4:
             delete_pid = int(input("Enter PID to delete: "))
             result = collection.delete_one({"pid": delete_pid})
             if result.deleted_count > 0:
-                print("✅ Product deleted successfully.")
+                print(" Product deleted successfully.")
             else:
-                print("❌ No product found with that PID.")
+                print(" No product found with that PID.")
 
         case 5:
-            print("👋 Exiting program...")
+            print(" Exiting program...")
             break
 
         case _:
-            print("⚠️ Invalid choice. Please try again.")
+            print(" Invalid choice. Please try again.")
 
 Output:
 Collection created successfully.
@@ -69,7 +69,7 @@ Collection created successfully.
 3. Search product by PID
 4. Delete product by PID
 5. Exit
-✅ Product inserted successfully.
+ Product inserted successfully.
 
 --- PRODUCT MENU ---
 1. Insert a product
@@ -77,7 +77,7 @@ Collection created successfully.
 3. Search product by PID
 4. Delete product by PID
 5. Exit
-✅ Product inserted successfully.
+ Product inserted successfully.
 
 --- PRODUCT MENU ---
 1. Insert a product
@@ -85,7 +85,7 @@ Collection created successfully.
 3. Search product by PID
 4. Delete product by PID
 5. Exit
-✅ Product inserted successfully.
+ Product inserted successfully.
 
 --- PRODUCT MENU ---
 1. Insert a product
@@ -105,7 +105,7 @@ PID: 12 | Name: oneplus 12 | Price: ₹30000.0
 3. Search product by PID
 4. Delete product by PID
 5. Exit
-✅ Product Found: PID=12, Name=oneplus 12, Price=₹30000.0
+ Product Found: PID=12, Name=oneplus 12, Price=₹30000.0
 
 --- PRODUCT MENU ---
 1. Insert a product
@@ -113,7 +113,7 @@ PID: 12 | Name: oneplus 12 | Price: ₹30000.0
 3. Search product by PID
 4. Delete product by PID
 5. Exit
-✅ Product deleted successfully.
+ Product deleted successfully.
 
 --- PRODUCT MENU ---
 1. Insert a product
@@ -131,4 +131,5 @@ PID: 11 | Name: samsung s24 | Price: ₹75000.0
 2. Display all products
 3. Search product by PID
 4. Delete product by PID
+
 5. Exit
