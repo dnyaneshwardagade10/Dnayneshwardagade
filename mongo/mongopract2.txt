@@ -133,7 +133,7 @@ cricket_db> db.player.find();
     wickets: 250
   }
 ]
-cricket_db> db.player.insertOne({
+cricket_db> db.team.insertOne({
 ...   teamid: 1,
 ...   team_name: "India",
 ...   captain: "Rohit Sharma",
@@ -298,18 +298,6 @@ cricket_db> db.player.find({
     strike_rate: 70.2,
     wickets: 250
   },
-  {
-    _id: ObjectId('68ef908e4e5558203fcebea8'),
-    teamid: 1,
-    team_name: 'India',
-    captain: 'Rohit Sharma',
-    players: [
-      'Rohit Sharma',
-      'Ravindra Jadeja',
-      'Yashasvi Jaiswal',
-      'Jasprit Bumrah'
-    ]
-  }
 ]
 cricket_db> db.player.find({
 ...   strike_rate: { $not: { $gt: 100 } }
@@ -355,17 +343,6 @@ cricket_db> db.player.find({
     strike_rate: 70.2,
     wickets: 250
   },
-  {
-    _id: ObjectId('68ef908e4e5558203fcebea8'),
-    teamid: 1,
-    team_name: 'India',
-    captain: 'Rohit Sharma',
-    players: [
-      'Rohit Sharma',
-      'Ravindra Jadeja',
-      'Yashasvi Jaiswal',
-      'Jasprit Bumrah'
-    ]
-  }
 ]
+
 cricket_db>
